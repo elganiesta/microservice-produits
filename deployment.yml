@@ -1,35 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mproduits
+spec:
+  selector:
+    app: microservice-produits
+  ports:
+    - protocol: TCP
+      port: 9001
+      targetPort: 9001
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: produits-deployment
+  name: produits-deploy
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mproduits
+      app: microservice-produits
   template:
     metadata:
       labels:
-        app: mproduits
+        app: microservice-produits
     spec:
       containers:
-      - name: mproduits
-        image: elganiesta/mproducts:1
-        resources:
-          limits:
-            memory: "128Mi"
-            cpu: "500m"
-        ports:
-        - containerPort: 9001
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mproduits-service
-spec:
-  selector:
-    app: mproduits
-  ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 9001
+        - name: microservice-produits
+          image: elganiesta/mproducts:3
+          ports:
+            - name: http
+              containerPort: 9001
