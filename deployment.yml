@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: microservice-produits
-          image: elganiesta/mproducts:3
+          image: elganiesta/mproducts:5
           ports:
             - name: http
               containerPort: 9001
